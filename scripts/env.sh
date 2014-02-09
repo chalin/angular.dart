@@ -25,7 +25,7 @@ fi
 
 if [ -d "$DART_SDK" ]; then
     : ${DARTSDK=$DART_SDK}
-elif [ ! -d  "$DART_SDK" ]] && [ -d "$DARTSDK" ]; then
+elif [ ! -d  "$DART_SDK" ] && [ -d "$DARTSDK" ]; then
     : ${DART_SDK:=$DARTSDK}
 fi
 
@@ -62,6 +62,7 @@ export DARTDOC=${DARTDOC:-"$DARTSDK/bin/dartdoc"}
 export CHROME_CANARY_BIN=${CHROME_CANARY_BIN:-"$DARTIUM"}
 export CHROME_BIN=${CHROME_BIN:-"google-chrome"}
 export DART_FLAGS='--enable_type_checks --enable_asserts'
-if ! (echo "$PATH" | sed -e 's/:/\\n/g' | grep "$DARTSDK/bin"); then
-    export PATH=$PATH:$DARTSDK/bin
+
+if [ -d "$DARTSDK/bin" ] && [[ ! "$PATH" =~ (^|:)"$DARTSDK/bin"(:|$) ]]; then
+    PATH+=":$DARTSDK/bin"
 fi
