@@ -63,6 +63,9 @@ export CHROME_CANARY_BIN=${CHROME_CANARY_BIN:-"$DARTIUM"}
 export CHROME_BIN=${CHROME_BIN:-"google-chrome"}
 export DART_FLAGS='--enable_type_checks --enable_asserts'
 
-if [ -d "$DARTSDK/bin" ] && [[ ! "$PATH" =~ (^|:)"$DARTSDK/bin"(:|$) ]]; then
+echo bash version `bash --version`
+
+if [ -d "$DARTSDK/bin" ] && [[ ! "$PATH" =~ (^|:)"$DARTSDK/bin"(:|$) ]]
+then
     PATH+=":$DARTSDK/bin"
 fi
