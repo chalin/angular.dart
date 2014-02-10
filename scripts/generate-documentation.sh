@@ -36,6 +36,8 @@ done
 
 DD_OUT="$TMP/$(basename $0)-out.txt"
 
+echo "Doc generation informational messages saved to $DD_OUT"
+
 $DARTDOC \
     --package-root=packages/ \
     --out doc \

@@ -17,10 +17,10 @@
 
 set -e
 
-# The preferred way of finding what we need.
+# FIXME: this might change
 if [ -d "$DART_BASE" ]; then
     : ${DART_SDK:=$DART_BASE/dart-sdk}
-    : ${DARTIUM:=$DART_BASE/chromium}
+    : ${DARTIUM:=$DART_BASE/chromium/Chromium.app/Contents/MacOS/Chromium}
 fi
 
 if [ -d "$DART_SDK" ]; then
@@ -32,7 +32,6 @@ fi
 # If we still don't have a handle on the dart-sdk, try to guess it.
 # FIXME
 if [ ! -d "$DART_SDK" ]; then
-    echo "=== "
     DART=`which dart|cat` # pipe to cat to ignore the exit code
     DART_SDK=`which dart | sed -e 's/\/dart\-sdk\/.*$/\/dart-sdk/'`
 
@@ -63,8 +62,6 @@ export CHROME_CANARY_BIN=${CHROME_CANARY_BIN:-"$DARTIUM"}
 export CHROME_BIN=${CHROME_BIN:-"google-chrome"}
 export DART_FLAGS='--enable_type_checks --enable_asserts'
 
-if [ -d "$DARTSDK/bin" ] && \
-    [[ ! "$PATH" =~ "(^|:)$DARTSDK/bin(:|$)" ]]
-then
+if [ -d "$DARTSDK/bin" ] && [[ ! "$PATH" =~ "(^|:)$DARTSDK/bin(:|$)" ]]; then
     PATH+=":$DARTSDK/bin"
 fi
